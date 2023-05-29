@@ -23,6 +23,8 @@ export default function Page() {
     useGlobalStateStore();
 
   const { data: queryData, isLoading } = useQueryGlobalState();
+  useQueryGlobalState();
+  useQueryGlobalState();
 
   return (
     <div>

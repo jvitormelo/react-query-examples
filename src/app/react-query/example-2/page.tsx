@@ -84,7 +84,7 @@ const Nested22 = () => {
   return <div>Price: {item.price}</div>;
 };
 
-const useItem = () => {
+export const useItem = () => {
   const query = useQuery({
     queryKey: ["item"],
     queryFn: async () => {
@@ -106,7 +106,7 @@ const useItem = () => {
 };
 
 // Daria para criar todas as acoes em um hook assim como o zustand faz, estou ate considerando isso
-const useDeleteItem = () => {
+export const useDeleteItem = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -126,7 +126,7 @@ const useDeleteItem = () => {
   };
 };
 
-const useRestoreItem = () => {
+export const useRestoreItem = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
