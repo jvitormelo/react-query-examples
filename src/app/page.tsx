@@ -29,8 +29,7 @@ export default function Page() {
   return (
     <div>
       <section>
-        <Link href={"/without-react-query/example-1"}>Exemplo 1</Link>
-        <Link href={"/without-react-query/example-2"}>Exemplo 2</Link>
+        <h1>Estado Global (client state)</h1>
         <Link href={"/without-react-query/example-3"}>Exemplo 3</Link>
 
         <pre className="whitespace-pre-wrap p-4 text-xs">
@@ -39,8 +38,7 @@ export default function Page() {
       </section>
 
       <section>
-        <Link href={"/react-query/example-1"}>Exemplo 1</Link>
-        <Link href={"/react-query/example-2"}>Exemplo 2</Link>
+        <h1>React Query </h1>
         <Link href={"/react-query/example-3"}>Exemplo 3</Link>
         <pre className="whitespace-pre-wrap p-4 text-xs">
           {isLoading ? "Carregando..." : JSON.stringify(queryData)}

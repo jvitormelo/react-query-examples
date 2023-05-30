@@ -26,7 +26,7 @@ interface IItemContext {
 const ItemContext = createContext<IItemContext | null>(null);
 
 const ReactQueryItemProvider = ({ children }: PropsWithChildren) => {
-  const { data, isLoading } = useItem();
+  const { data, isLoading } = useItem(3);
   const { deleteItem } = useDeleteItem();
   const { restoreItem } = useRestoreItem();
 

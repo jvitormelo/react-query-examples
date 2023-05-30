@@ -17,8 +17,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { PropsWithChildren, useMemo } from "react";
 
+const id = 3;
+
 const Wrapper = ({ children }: PropsWithChildren) => {
-  const { isLoading } = useItem();
+  const { isLoading } = useItem(id);
 
   if (isLoading) {
     return <Spinner />;
@@ -32,7 +34,7 @@ const NoItemRelated = () => {
 };
 
 const Nested11 = () => {
-  const { item } = useItem();
+  const { item } = useItem(id);
 
   return (
     <div>
@@ -43,7 +45,7 @@ const Nested11 = () => {
 };
 
 const Nested12 = () => {
-  const { item } = useItem();
+  const { item } = useItem(id);
   const { deleteItem, isLoading: isDeleteLoading } = useDeleteItem();
   const { restoreItem, isLoading: isRestoreLoading } = useRestoreItem();
 
@@ -74,23 +76,23 @@ const Nested12 = () => {
 };
 
 const Nested21 = () => {
-  const { item } = useItem();
+  const { item } = useItem(id);
 
   return <div>Name: {item?.name}</div>;
 };
 
 const Nested22 = () => {
-  const { item } = useItem();
+  const { item } = useItem(id);
   return <div>Price: {item.price}</div>;
 };
 
-export const useItem = () => {
+export const useItem = (id: number) => {
   const query = useQuery({
-    queryKey: ["item"],
+    queryKey: ["item", id],
     queryFn: async () => {
       await new Promise((r) => setTimeout(r, 1000));
 
-      return { id: 3, isDeleted: false, name: "Teste", price: 10 };
+      return { id, isDeleted: false, name: "Teste", price: 10 };
     },
   });
 
@@ -113,8 +115,8 @@ export const useDeleteItem = () => {
     mutationFn: async () => {
       await new Promise((r) => setTimeout(r, 1000));
     },
-    onSuccess(data, variables, context) {
-      queryClient.setQueryData<StoreItem>(["item"], (oldData) => {
+    onSuccess() {
+      queryClient.setQueryData<StoreItem>(["item", id], (oldData) => {
         return oldData && { ...oldData, isDeleted: true };
       });
     },
@@ -134,7 +136,7 @@ export const useRestoreItem = () => {
       await new Promise((r) => setTimeout(r, 1000));
     },
     onSuccess() {
-      queryClient.setQueryData<StoreItem>(["item"], (oldData) => {
+      queryClient.setQueryData<StoreItem>(["item", id], (oldData) => {
         return oldData && { ...oldData, isDeleted: false };
       });
     },
