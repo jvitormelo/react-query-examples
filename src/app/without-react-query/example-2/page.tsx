@@ -4,13 +4,15 @@ import { Spinner } from "@/app/components/Spinner";
 
 import { PropsWithChildren, useEffect, useState } from "react";
 
+const id = 3;
+
 export default function Page() {
   const actions = useItemStore((s) => s.actions);
 
   const fetchItem = async () => {
     actions.setLoading(true);
     await new Promise((r) => setTimeout(r, 1000));
-    actions.setItem({ id: 3, isDeleted: false, name: "Teste", price: 10 });
+    actions.setItem({ id, isDeleted: false, name: "Teste", price: 10 });
     actions.setLoading(false);
   };
 
@@ -54,7 +56,7 @@ const Nested11 = () => {
 
 const Nested12 = () => {
   const item = useItemStore((s) => s.item);
-  const { deleteItem, restoreItem } = useItemStore((s) => s.actions);
+  const { deleteItem, restoreItem, setItem } = useItemStore((s) => s.actions);
   const [loading, setIsLoading] = useState(false);
 
   const handleClick = async () => {
@@ -74,7 +76,7 @@ const Nested12 = () => {
       <button
         className={`${
           item.isDeleted ? "bg-green-500" : "bg-red-500"
-        } text-white px-4 py-2 rounded}`}
+        } rounded} px-4 py-2 text-white`}
         onClick={handleClick}
       >
         {item.isDeleted ? "Restore" : "Delete"}

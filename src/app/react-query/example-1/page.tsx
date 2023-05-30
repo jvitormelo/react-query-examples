@@ -12,7 +12,6 @@ export default function Page() {
   const {
     data: items,
     isLoading,
-    isRefetching,
     refetch,
   } = useQuery<Item[]>({
     queryKey: ["example", { option }],
@@ -27,7 +26,7 @@ export default function Page() {
   return (
     <ContentList
       // explicar na hora
-      isLoading={isLoading || isRefetching}
+      isLoading={isLoading}
       items={items || []}
       option={option}
       setOption={setOption}

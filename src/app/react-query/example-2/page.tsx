@@ -2,6 +2,12 @@
 
 import { Spinner } from "@/app/components/Spinner";
 
+import { StoreItem } from "@/app/without-react-query/example-2/page";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { PropsWithChildren, useMemo } from "react";
+
 export default function Page() {
   return (
     <Wrapper>
@@ -11,11 +17,6 @@ export default function Page() {
     </Wrapper>
   );
 }
-import { StoreItem } from "@/app/without-react-query/example-2/page";
-
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-import { PropsWithChildren, useMemo } from "react";
 
 const id = 3;
 
