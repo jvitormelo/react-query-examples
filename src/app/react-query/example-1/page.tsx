@@ -5,16 +5,8 @@ import { ContentList } from "@/app/components/ContentList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-export default function Page() {
-  const queryClient = useQueryClient();
-  const [option, setOption] = useState<ExampleOptions>("animes");
-
-  const {
-    data: items,
-    isLoading,
-    isRefetching,
-    refetch,
-  } = useQuery<Item[]>({
+const useItems = (option: ExampleOptions) => {
+  return useQuery<Item[]>({
     queryKey: ["example", { option }],
     queryFn: async ({ signal }) => {
       const response = await fetch(`/api/example?option=${option}`, {
@@ -25,6 +17,19 @@ export default function Page() {
     },
     refetchInterval: 10000,
   });
+};
+
+export default function Page() {
+  const queryClient = useQueryClient();
+  const [option, setOption] = useState<ExampleOptions>("animes");
+
+  const { data: items, isLoading, isRefetching, refetch } = useItems(option);
+
+  const addItem = (item: Item) => {
+    queryClient.setQueryData<Item[]>(["example", { option }], (oldData) => {
+      return [...(oldData || []), item];
+    });
+  };
 
   return (
     <div>
@@ -35,14 +40,7 @@ export default function Page() {
         option={option}
         setOption={setOption}
         refresh={refetch}
-        onNewItem={(item) => {
-          queryClient.setQueryData(
-            ["example", { option }],
-            (oldData: Item[] | undefined) => {
-              return [...(oldData || []), item];
-            }
-          );
-        }}
+        onNewItem={addItem}
       />
       {isRefetching && <div>Atualizando...</div>}
     </div>

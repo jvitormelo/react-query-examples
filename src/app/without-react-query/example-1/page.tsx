@@ -22,6 +22,10 @@ export default function Page() {
     setIsLoading(false);
   };
 
+  const addItems = (item: Item) => {
+    setItems((items) => [...items, item]);
+  };
+
   useEffect(() => {
     fetchItems();
   }, [option]);
@@ -41,9 +45,7 @@ export default function Page() {
       option={option}
       setOption={setOption}
       refresh={fetchItems}
-      onNewItem={(item) => {
-        setItems((items) => [...items, item]);
-      }}
+      onNewItem={addItems}
     />
   );
 }

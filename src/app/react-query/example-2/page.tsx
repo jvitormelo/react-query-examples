@@ -86,7 +86,6 @@ const HeaderAction = () => {
 export const useItem = (id: number, options?: UseQueryOptions<StoreItem>) => {
   const query = useQuery<StoreItem>({
     queryKey: ["item", id],
-
     queryFn: async () => {
       await new Promise((r) => setTimeout(r, 1000));
 
