@@ -13,15 +13,22 @@ export default function StartPage2() {
       <article className="mt-4">
         <p>
           O React Query é uma biblioteca que nos ajuda a gerenciar o Server
-          State / Async State. Venha comigo ver alguns exemplos
+          State / Async State. Ele encoraja a pattern de{" "}
+          <a
+            className="text-blue-900 underline"
+            href="https://web.dev/stale-while-revalidate/"
+            target="_blank"
+          >
+            stale-while-revalidate
+          </a>
+          . Bora ver alguns exemplos?
         </p>
 
         <ol className="my-8 flex flex-col gap-8">
           <li>
             O primeiro exemplo será para mostrar uma lista de items, que poder
             ser filtrada, nela assim que alguma chave mudar, o react query
-            automaticamente ja vai começar a buscar o novo dado, sem precisar de
-            uso de useEffects.
+            automaticamente ja vai começar a buscar o novo dado
             <NewTabButton
               urls={[
                 "/react-query/example-1",
@@ -35,7 +42,7 @@ export default function StartPage2() {
           <li>
             Segundo exemplo é mostrando que vc pode chamar o mesmo hook em
             múltiplos lugares ao mesmo tempo, ele nao ira fazer múltipla
-            requisições
+            requisições e ira compartilha seu estado (dedupe)
             <NewTabButton
               urls={[
                 "/react-query/example-2",
@@ -47,9 +54,15 @@ export default function StartPage2() {
           </li>
 
           <li>
-            Terceiro exemplo - ESTADO GLOBAL, o tradicional seta quando o App
-            mounta, e depois vc pode usar em qualquer lugar
+            Terceiro exemplo - ESTADO GLOBAL, o tradicional carrega quando o App
+            mounta, e depois use em qualquer lugar
             <NewTabButton urls={["/"]}>Exemplo 3 - Estado Global</NewTabButton>
+          </li>
+
+          <li>
+            <a href="https://tanstack.com/query/v4/docs/react/reference/useInfiniteQuery">
+              Paginação infinita (TODO)
+            </a>
           </li>
         </ol>
       </article>
@@ -95,7 +108,7 @@ export default function StartPage2() {
           </p>
         </section>
 
-        <span>🤡🤡🤣🤣☠</span>
+        <span>🤡🤡🤣🤣 😳👉👈</span>
       </section>
     </div>
   );

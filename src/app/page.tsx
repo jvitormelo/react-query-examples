@@ -13,7 +13,9 @@ export const useQueryGlobalState = () => {
       const res = await fetch("https://jsonplaceholder.typicode.com/todos");
       const data = await res.json();
 
-      const title = new Set<string>(data.map((d: any) => d.title));
+      const title = new Set<string>(
+        data.map((d: { title: string }) => d.title)
+      );
       return Array.from(title) as string[];
     },
   });

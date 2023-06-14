@@ -24,7 +24,9 @@ export const ZustandDataLoader = () => {
       .then(async (res) => {
         const data = await res.json();
 
-        const title = new Set<string>(data.map((d: any) => d.title));
+        const title = new Set<string>(
+          data.map((d: { title: string }) => d.title)
+        );
 
         setData(Array.from(title));
       })

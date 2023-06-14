@@ -26,8 +26,8 @@ export default function Page() {
         </ul>
       </article>
 
-      <Link className="text-3xl underline" href={"/start/2"}>
-        😳👉👈
+      <Link className="text-3xl text-blue-900 underline" href={"/start/2"}>
+        ▶
       </Link>
     </div>
   );
