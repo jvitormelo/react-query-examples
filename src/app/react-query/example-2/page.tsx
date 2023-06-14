@@ -48,7 +48,7 @@ const DeletedBadge = () => {
 
   return (
     <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-red-950 p-2">
-      😭😭😭
+      🗑🗑🗑
     </div>
   );
 };

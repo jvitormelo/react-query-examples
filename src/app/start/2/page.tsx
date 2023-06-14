@@ -77,7 +77,7 @@ export default function StartPage2() {
         </ul>
       </article>
 
-      <section className="mt-20">
+      <section className="mt-72">
         <h4>Bonus</h4>
         <section className="mb-4 italic">
           <p>

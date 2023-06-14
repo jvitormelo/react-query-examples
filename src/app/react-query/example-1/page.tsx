@@ -12,6 +12,7 @@ export default function Page() {
   const {
     data: items,
     isLoading,
+    isRefetching,
     refetch,
   } = useQuery<Item[]>({
     queryKey: ["example", { option }],
@@ -26,21 +27,24 @@ export default function Page() {
   });
 
   return (
-    <ContentList
-      // explicar na hora
-      isLoading={isLoading}
-      items={items || []}
-      option={option}
-      setOption={setOption}
-      refresh={refetch}
-      onNewItem={(item) => {
-        queryClient.setQueryData(
-          ["example", { option }],
-          (oldData: Item[] | undefined) => {
-            return [...(oldData || []), item];
-          }
-        );
-      }}
-    />
+    <div>
+      <ContentList
+        // explicar na hora
+        isLoading={isLoading}
+        items={items || []}
+        option={option}
+        setOption={setOption}
+        refresh={refetch}
+        onNewItem={(item) => {
+          queryClient.setQueryData(
+            ["example", { option }],
+            (oldData: Item[] | undefined) => {
+              return [...(oldData || []), item];
+            }
+          );
+        }}
+      />
+      {isRefetching && <div>Atualizando...</div>}
+    </div>
   );
 }
