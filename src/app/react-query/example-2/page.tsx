@@ -16,7 +16,9 @@ import { useMemo } from "react";
 const id = 3;
 
 export default function Page() {
-  const { isLoading } = useItem(id, { notifyOnChangeProps: ["isLoading"] });
+  const { isLoading } = useItem(id, {
+    notifyOnChangeProps: ["isLoading"],
+  });
 
   if (isLoading) {
     return <Spinner />;
