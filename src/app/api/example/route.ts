@@ -18,10 +18,13 @@ export async function GET(request: Request) {
       ? [
           { id: 1, name: "The Eminence in Shadows" },
           { id: 2, name: "Re:Zero" },
+          { id: 3, name: "Mushoku Tensei" },
         ]
       : [
-          { id: 1, name: "Genshin Impact" },
-          { id: 2, name: "League of legends" },
+          { id: 1, name: "Path of Exile" },
+          { id: 4, name: "Lost Ark" },
+          { id: 3, name: "League of legends" },
+          { id: 2, name: "Genshin Impact" },
         ];
 
   return NextResponse.json(items);

@@ -4,48 +4,56 @@ import { Spinner } from "@/app/components/Spinner";
 
 import { StoreItem } from "@/app/without-react-query/example-2/page";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  UseQueryOptions,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
-import { PropsWithChildren, useMemo } from "react";
-
-export default function Page() {
-  return (
-    <Wrapper>
-      <Nested11 />
-      <Nested12 />
-      <NoItemRelated />
-    </Wrapper>
-  );
-}
+import { useMemo } from "react";
 
 const id = 3;
 
-const Wrapper = ({ children }: PropsWithChildren) => {
-  const { isLoading } = useItem(id);
+export default function Page() {
+  const { isLoading } = useItem(id, { notifyOnChangeProps: ["isLoading"] });
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  return <div>{children}</div>;
-};
+  return (
+    <div>
+      <Header />
+    </div>
+  );
+}
 
-const NoItemRelated = () => {
-  return <div>De boa</div>;
-};
-
-const Nested11 = () => {
+const Header = () => {
   const { item } = useItem(id);
 
   return (
-    <div>
-      {item.isDeleted && <div>Item deleted</div>}
-      <Nested21 />
+    <div className="relative flex min-w-[50vw] justify-between rounded-lg bg-gray-600 p-8">
+      <DeletedBadge />
+      <div>{item.name}</div>
+      <HeaderAction />
     </div>
   );
 };
 
-const Nested12 = () => {
+const DeletedBadge = () => {
+  const { item } = useItem(id);
+
+  if (!item.isDeleted) return null;
+
+  return (
+    <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-red-950 p-2">
+      😭😭😭
+    </div>
+  );
+};
+
+const HeaderAction = () => {
   const { item } = useItem(id);
   const { deleteItem, isLoading: isDeleteLoading } = useDeleteItem();
   const { restoreItem, isLoading: isRestoreLoading } = useRestoreItem();
@@ -65,40 +73,35 @@ const Nested12 = () => {
       <button
         className={`${
           item.isDeleted ? "bg-green-500" : "bg-red-500"
-        } rounded} px-4 py-2 text-white`}
+        } rounded} flex px-4 py-2 text-white`}
         onClick={handleClick}
       >
         {item.isDeleted ? "Restore" : "Delete"}
         {loading && <Spinner />}
       </button>
-      <Nested22 />
     </div>
   );
 };
 
-const Nested21 = () => {
-  const { item } = useItem(id);
-
-  return <div>Name: {item?.name}</div>;
-};
-
-const Nested22 = () => {
-  const { item } = useItem(id);
-  return <div>Price: {item.price}</div>;
-};
-
-export const useItem = (id: number) => {
-  const query = useQuery({
+export const useItem = (id: number, options?: UseQueryOptions<StoreItem>) => {
+  const query = useQuery<StoreItem>({
     queryKey: ["item", id],
+
     queryFn: async () => {
       await new Promise((r) => setTimeout(r, 1000));
 
-      return { id, isDeleted: false, name: "Teste", price: 10 };
+      return { id, isDeleted: false, name: "Teste" };
     },
+    ...options,
   });
 
-  const item = useMemo<StoreItem>(
-    () => query.data ?? ({} as StoreItem),
+  const item = useMemo(
+    () =>
+      query.data ?? {
+        id: 0,
+        isDeleted: false,
+        name: "",
+      },
     [query.data]
   );
 

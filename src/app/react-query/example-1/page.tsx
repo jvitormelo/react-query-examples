@@ -15,8 +15,10 @@ export default function Page() {
     refetch,
   } = useQuery<Item[]>({
     queryKey: ["example", { option }],
-    queryFn: async () => {
-      const response = await fetch(`/api/example?option=${option}`);
+    queryFn: async ({ signal }) => {
+      const response = await fetch(`/api/example?option=${option}`, {
+        signal,
+      });
 
       return await response.json();
     },

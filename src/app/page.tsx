@@ -8,6 +8,7 @@ export const useQueryGlobalState = () => {
   return useQuery({
     queryKey: ["global-state"],
     staleTime: Infinity,
+    cacheTime: Infinity,
     queryFn: async () => {
       const res = await fetch("https://jsonplaceholder.typicode.com/todos");
       const data = await res.json();
@@ -30,7 +31,12 @@ export default function Page() {
     <div>
       <section>
         <h1>Estado Global (client state)</h1>
-        <Link href={"/without-react-query/example-3"}>Exemplo 3</Link>
+        <Link
+          className="text-blue-900 underline"
+          href={"/without-react-query/example-3"}
+        >
+          Exemplo 3
+        </Link>
 
         <pre className="whitespace-pre-wrap p-4 text-xs">
           {isZustandLoading ? "Carregando..." : JSON.stringify(zustandData)}
@@ -39,7 +45,12 @@ export default function Page() {
 
       <section>
         <h1>React Query </h1>
-        <Link href={"/react-query/example-3"}>Exemplo 3</Link>
+        <Link
+          href={"/react-query/example-3"}
+          className="text-blue-900 underline"
+        >
+          Exemplo 3
+        </Link>
         <pre className="whitespace-pre-wrap p-4 text-xs">
           {isLoading ? "Carregando..." : JSON.stringify(queryData)}
         </pre>
